@@ -7,7 +7,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo ./gradlew assemble'
+                sh 'chmod +x ./gradlew'
+                sh './gradlew assemble'
             }
         }
         stage('Test') {
