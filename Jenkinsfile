@@ -1,21 +1,18 @@
 pipeline {
     agent any
-    tools {
-        jdk 'jdk'
-     }
+
+    triggers {
+        pollSCM '* * * * *'
+    }
     stages {
-        stage("build project") {
+        stage('Build') {
             steps {
-                    gradle {
-                    tasks 'build'
-                    options '--stacktrace'
-                    gradleOptions '-Pproject.version=${env.BUILD_NUMBER}'
-                }
-                echo "Java VERSION"
-                sh 'java -version'
-                echo 'building project...'
-
-
+                sh './gradlew assemble'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './gradlew test'
             }
         }
     }
