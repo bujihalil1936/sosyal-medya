@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -20,45 +21,55 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     JwtTokenManager jwtTokenManager;
 
     @Autowired
-    JwtUserDetail jwtUserDetail;
+    JwtUserDetail  jwtUserDetail;
 
     @Autowired
     JwtEncodeDecode jwtEncodeDecode;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
         /**
-         * We'll check the Authorization header for all incoming requests with tokens
-         * If there's a header like "Bearer [Your token].
+         * Token ile gelen isteklerde, Authorization header'ını kontrol ediyoruz.
+         * Burada "Bearer [Your token]" şeklinde bir header gönderilmişse,
          */
-        final String authorizationHeader = request.getHeader("Authorization"); //Bearer Token
+        final String authorizationHeader = request.getHeader("Authorization"); // Bearer Token
 
         /**
-         * 1. Is the authorization exists?
-         * 2. Is the Bearer exists?
-         * 3. Is user already logged in?
+         * 1. Authorization var mı yokmu??
+         * 2. Bearer var mı yokmu??
+         * 3. Kişi önceden oturum açmış mı????
          */
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ") && SecurityContextHolder.getContext().getAuthentication()==null){
-            /**
-             *    01234567
-             *    Bearer [Token]
-             *    As you can see above, the token starts at the 7. th character.
-             *    This means we'll look after the 7. th character for token.
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ") &&
+                SecurityContextHolder.getContext().getAuthentication()==null) {
+            /***
+             * 7. karakterden sonrası bizim token bilgimiz olacak.
              */
             String token = authorizationHeader.substring(7);
             boolean isValid = jwtTokenManager.validateToken(token);
-            if (isValid){
-                Optional<String> encodedProfileId = jwtTokenManager.getProfileId(token);
-                if (encodedProfileId.isPresent()){
-                    String decodedProfileId = jwtEncodeDecode.getDecodeUUID(encodedProfileId.get());
-                    UserDetails user = jwtUserDetail.loadUserProfileId(decodedProfileId);
-                    if (user != null){
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
+            if (isValid) {
+                Optional<String> EncodedprofileId = jwtTokenManager.getProfileId(token);
+                if (EncodedprofileId.isPresent()) {
+                    //String DecotedProfileId = jwtEncodeDecode.getDecodeUUID(EncodedprofileId.get());
+                    UserDetails user = jwtUserDetail.loadUserProfileId(EncodedprofileId.get());
+                    if (user != null) {
+                        /**
+                         * Eğer Kullanıcı bilgileri doğru ise bize verilen spring oturum kullanıcısını
+                         * Session oluşturarak bu sesion içine gömeriz.
+                         */
+                        UsernamePasswordAuthenticationToken authentication =
+                                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                     }
                 }
             }
         }
-        filterChain.doFilter(request,response);
+
+        /**
+         * Tüm isterler işlendiktenn sonra, gelen request olduğu gibi gönderilir.
+         *
+         */
+        filterChain.doFilter(request, response);
     }
 }

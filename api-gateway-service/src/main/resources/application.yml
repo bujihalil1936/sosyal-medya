@@ -1,11 +1,11 @@
 server:
-  port: 3333
+  port: ${api_gateway_service_server_port}
 spring:
   main:
     web-application-type: reactive
   zipkin:
     enabled: true
-    base-url: http://35.192.208.214:9411/
+    base-url: ${api_gateway_service_zipkin_baseurl}
     service-name: api-gateway-service
   application:
     name: api-gateway-service

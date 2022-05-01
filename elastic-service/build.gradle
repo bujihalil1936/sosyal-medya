@@ -11,4 +11,5 @@ dependencies {
     implementation libs.springGraphiql
     implementation libs.springGraphql
     implementation libs.javaToolGraphql
+
 }

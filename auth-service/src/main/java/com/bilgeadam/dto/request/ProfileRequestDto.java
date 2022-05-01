@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,4 +22,5 @@ public class ProfileRequestDto implements Serializable {
     String city;
     String gender;
     String about;
+
 }

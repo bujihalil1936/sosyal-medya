@@ -10,19 +10,22 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class DoLoginResponseDto {
-    String  profileid;
+    String profileid;
     String token;
-    /** status will show that if user is active or not.
-     * 0-> passive user
-     * 1-> active user
-     * 2-> banned user
-     * */
+    /**
+     * Status kullanıcının aktiflik durumunu belirtir.
+     * 0-> pasif kullanıcı
+     * 1-> aktif kullanıcı
+     * 2-> engellenmiş kullanıcı  , hesap askıda
+     * 3-> V.S.
+     */
     int status;
-    /** 200 : successful
-     *  400 : request failed
-     *  410 : user not found
-     *  411: token error
-     *  500 : unexpected error
-    * */
+    /**
+     * 200: Başarılı
+     * 400: Hatalı
+     * 410: Kullanıcı bulunamadı
+     * 411: token hatası
+     * 500: Beklenmeyen hata
+     */
     int error;
 }

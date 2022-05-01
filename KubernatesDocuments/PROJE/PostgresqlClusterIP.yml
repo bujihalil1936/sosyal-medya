@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: clusterippostgres
+  labels:
+    clusterips: tools
+spec:
+  selector:
+    app:  deploymentpostgresql
+  type:  ClusterIP
+  ports:
+  - name:  postgretcp
+    port:  5432
+    targetPort:  5432

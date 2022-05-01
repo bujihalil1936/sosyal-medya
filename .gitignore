@@ -1,19 +1,37 @@
-# Project exclude paths
-/.gradle/
-/auth-service/build/
-/auth-service/build/classes/java/main/
-/auth-service/src/main/resources/application.yml
-/user-service/build/
-/user-service/build/classes/java/main/
-/user-service/src/main/resources/resources/application.yml
-/web-service/build/
-/web-service/build/classes/java/main/
-/web-service/src/main/resources/resources/application.yml
-/config-server/build/
-/config-server/build/classes/java/main/
-/config-server/src/main/resources/application.yml
-/config-server/src/main/resources/services/
-/api-gateway-service/build/
-/api-gateway-service/build/classes/java/main/
-/api-gateway-service/src/main/resources/resources/application.yml
-BilgeAdamSocialMediaHtml/
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/

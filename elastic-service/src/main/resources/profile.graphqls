@@ -1,6 +1,6 @@
 type Profile{
     id: ID!
-    profileId: String!
+    profileid: String!
     firstname: String!
     lastname: String!
     email: String!
@@ -9,7 +9,7 @@ type Profile{
 }
 
 input ProfileInput{
-    profileId: String!
+    profileid: String!
     firstname: String!
     lastname: String!
     email: String!

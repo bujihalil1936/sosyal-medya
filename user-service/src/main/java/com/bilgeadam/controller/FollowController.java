@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.bilgeadam.constant.RestApiUrls.*;
 
 @RestController
-@RequestMapping(VERSION + FOLLOW)
+@RequestMapping(VERSION+FOLLOW)
 public class FollowController {
 }

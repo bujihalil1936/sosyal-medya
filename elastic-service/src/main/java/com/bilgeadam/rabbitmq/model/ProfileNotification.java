@@ -18,4 +18,5 @@ public class ProfileNotification implements Serializable {
     String email;
     String city;
     String country;
+
 }

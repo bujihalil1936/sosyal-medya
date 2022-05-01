@@ -2,6 +2,7 @@ package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.request.LoginDto;
 import com.bilgeadam.dto.response.DoLoginResponseDto;
+import com.bilgeadam.model.LoginPageModel;
 import com.bilgeadam.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -32,6 +35,7 @@ public class LoginController {
         List<LoginPageModel.urun> list = new ArrayList<>();
         list.add(LoginPageModel.urun.builder().urunAdi("PC").build());
         list.add(LoginPageModel.urun.builder().urunAdi("LAPTOP").build());
+
         modelAndView.addObject("model",
                 LoginPageModel
                         .builder()
@@ -44,11 +48,11 @@ public class LoginController {
         return modelAndView;
     }
 
-    //@PostMapping("/login")
+   // @PostMapping("/login")
     public Object login(@Valid LoginDto loginDto) {
-        DoLoginResponseDto response = loginService.Login(loginDto);
+        DoLoginResponseDto  response = loginService.Login(loginDto);
         /**
-         * 200 ile kullanınını profil bilgisiini olsuğunu öğrendim
+         * 200 ile kullanınını profil bilgisiini olsuğunu mğrendim
          * profileid= 45435bcgbrtyb
          */
         if(response.getError() == 200){

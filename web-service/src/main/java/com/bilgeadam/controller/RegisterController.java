@@ -6,6 +6,7 @@ import com.bilgeadam.service.S3ManagerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,24 +33,33 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public Object register(String firstname, String lastname, String email, String password, String country, MultipartFile image) {
+    public Object register(String ad, String soyad,
+                           String email, String sifre,
+                           String ulke, MultipartFile resim) {
         ModelAndView model = new ModelAndView();
-
-        String profileId = authServiceManager.register(RegisterRequestDto.builder()
-                .password(password)
-                .email(email)
-                .surname(lastname)
-                .name(firstname)
-                .country(country)
-                .build()).getBody();
-
+        /**
+         * Üyelik için
+         * Auth -> ka, şifre
+         * User -> profil bilgilerini
+         * ProfileId ver
+         */
+       String profileId =  authServiceManager.register(RegisterRequestDto.builder()
+                        .sifre(sifre)
+                        .email(email)
+                        .soyad(soyad)
+                        .ad(ad)
+                        .ulke(ulke)
+                        .build()).getBody();
         try{
-            s3ManagerService.putObject(profileId+".png",image);
+
+            s3ManagerService.putObject(profileId+".png",resim);
             model.setViewName("login");
         }catch (Exception e){
-            log.error("Uploading Image Failed...: "+e.getMessage());
+            log.error("resim yüklenemedi...: "+e.getMessage());
             model.setViewName("register");
         }
         return model;
     }
+
+
 }

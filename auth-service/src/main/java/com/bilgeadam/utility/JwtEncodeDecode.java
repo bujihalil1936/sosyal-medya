@@ -19,9 +19,9 @@ import java.util.Base64;
 @Service
 public class JwtEncodeDecode {
 
-    private String privateurl= "d:/bilge2048.key";
+    private String privateurl= "/private.key";
 
-    private String publicurl= "d:\\bilge2048pub.key";
+    private String publicurl= "/public.key";
 
     public String getEncryptUUID(String uuid){
         try{
@@ -86,4 +86,5 @@ public class JwtEncodeDecode {
         }
 
     }
+
 }

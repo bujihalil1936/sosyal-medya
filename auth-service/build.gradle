@@ -10,4 +10,10 @@ dependencies {
     implementation libs.springAmqp
     implementation  libs.springSecurity
     implementation libs.auth0Jwt
+    implementation libs.springRedis
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }

@@ -8,18 +8,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface IUserRepository extends JpaRepository<User, Long> {
-    /**
-     * Getting email and password info to let user login.
-     * @param username  (e-mail info)
-     * @param password  (password info)
-     * @return */
-    Optional<User> findByUsernameAndPassword(String username, String password);
+public interface IUserRepository extends JpaRepository<User,Long> {
 
     /**
-     * Lists users by status
+     * Kullanıcının oturum açabilmesini için email ve şifre bilgisi alınır. kayıtlı bilgi var ise
+     * optional olarak cevap dönülür.
+     * @param username  E-Mail Bilgisi
+     * @param password  Şifre Bilgisi
+     * @return
+     */
+    Optional<User> findByUsernameAndPassword(String username,String password);
+
+    /**
+     * Durularına göre kullacılaır listeler.
      * @param status
      * @return
-     * */
+     */
     List<User> findByStatus(int status);
+
 }

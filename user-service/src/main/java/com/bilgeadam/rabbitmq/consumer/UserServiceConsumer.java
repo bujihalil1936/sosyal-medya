@@ -11,11 +11,11 @@ public class UserServiceConsumer {
 
     @RabbitListener(queues = "queueCreateUser")
     public void consumeNotification(Notification notification){
-        log.info("New notification: " + notification.toString());
+       log.info("Bildirim geldi....: "+ notification.toString());
     }
 
     @RabbitListener(queues = "queueDeleteUser")
     public void consumeDeleteUser(Notification notification){
-        log.info("User Deleted: "+ notification.toString());
+        log.info("Kullanı Silindi....: "+ notification.toString());
     }
 }

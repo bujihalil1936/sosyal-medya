@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 @Data
 @Builder
 public class LoginDto {
+
     @Email
     @NotNull
     String email;

@@ -29,4 +29,6 @@ public class RestApiUrls {
 
     public static final String DOLOGIN= "/dologin";
     public static final String REGISTER= "/register";
+
+
 }

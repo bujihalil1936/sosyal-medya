@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+/**
+ * Feign Cliet aktivasyonu için burada kullanılması gerekli.
+ * Not!! ARAŞTIRALIM
+ */
 @EnableFeignClients
 public class AuthServiceSpring {
 

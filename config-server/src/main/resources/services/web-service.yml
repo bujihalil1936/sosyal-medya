@@ -1,0 +1,29 @@
+server:
+  port: ${web_service_server_port}
+
+spring:
+  zipkin:
+    enabled: true
+    base-url: ${web_service_zipkin_baseurl}
+    service-name: web-service
+
+s3:
+  accesskey: ${AWS_ACCESSKEY_S3}
+  secretkey: ${AWS_SECRETKEY_S3}
+
+
+logging:
+  level:
+    root: warn
+    org.springframework.boot: info
+    com.bilgeadam: debug
+  file:
+    name: webservice.log
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [health, info, metrics]

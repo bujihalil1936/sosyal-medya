@@ -1,0 +1,55 @@
+server:
+  port: 8092
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  cloud:
+    gcp:
+      project-id: "endless-gamma-191414"
+      credentials:
+        scopes: https://www.googleapis.com/auth/devstorage.read_write
+
+  rabbitmq:
+    host: ${user_service_spring_rabbit_host}
+    port: ${user_service_spring_rabbit_port}
+    username: ${user_service_spring_rabbit_username}
+    password: ${user_service_spring_rabbit_password}
+  data:
+    mongodb:
+      database: ${user_service_data_mongodb_database}
+      username: ${user_service_data_mongodb_username}
+      password: ${user_service_data_mongodb_password}
+      host: ${user_service_data_mongodb_host}
+      port: ${user_service_data_mongodb_port}
+  zipkin:
+    enabled: true
+    base-url: ${user_service_zipkin_baseurl}
+    service-name: post-service
+
+logging:
+  level:
+    root: warn
+    org.springframework.boot: info
+    com.bilgeadam: debug
+  file:
+    name: postservice.log
+
+s3:
+  accesskey: ${AWS_ACCESSKEY_S3}
+  secretkey: ${AWS_SECRETKEY_S3}
+
+myproject:
+  google:
+    cloud:
+      bucketname: "bilge-post-image"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [health, info, metrics]

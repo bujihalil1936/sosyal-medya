@@ -11,14 +11,16 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @NoArgsConstructor
 @Data
 @Builder
-@Document(indexName = "profile")
+@Document(indexName="profile")
 public class Profile {
+
     @Id
     String id;
-    String profileId;
+    String profileid;
     String firstname;
     String lastname;
     String email;
     String country;
     String city;
+
 }

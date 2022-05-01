@@ -15,8 +15,6 @@ import java.util.List;
 @Service
 public class BilgeUserDetailService implements UserDetailsService {
 
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> authorityList = new ArrayList<>();
@@ -28,4 +26,3 @@ public class BilgeUserDetailService implements UserDetailsService {
         throw new UsernameNotFoundException("User not found");
     }
 }
-

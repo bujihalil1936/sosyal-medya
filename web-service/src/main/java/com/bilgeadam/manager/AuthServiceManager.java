@@ -12,11 +12,13 @@ import javax.validation.Valid;
 
 import static com.bilgeadam.constants.RestApiUrls.DOLOGIN;
 
-@FeignClient(url = "localhost:8091/v1/auth", name ="userServiceFeignClient", decode404 = true)
+@FeignClient(url = "localhost:8091/v1/auth", name = "userServiceFeignClient", decode404 = true)
 public interface AuthServiceManager {
+
     @PostMapping("/register")
-    ResponseEntity<String > register(@RequestBody @Valid RegisterRequestDto dto);
+    ResponseEntity<String> register(@RequestBody @Valid RegisterRequestDto dto);
 
     @PostMapping(DOLOGIN)
     ResponseEntity<DoLoginResponseDto> doLogin(DoLoginRequestDto dto);
+
 }

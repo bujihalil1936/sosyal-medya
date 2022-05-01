@@ -1,0 +1,34 @@
+server:
+  port: 8888
+
+spring:
+  security:
+    user:
+      name: ${config_security_username}
+      password: ${config_security_password}
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/services
+
+
+  zipkin:
+    enabled: true
+    base-url: ${config_service_zipkin_baseurl}
+    service-name: config-server
+
+logging:
+  level:
+    root: warn
+    org.springframework.boot: info
+    com.bilgeadam: debug
+  ##  com.bilgeadam.controller: debug
+  file:
+    name: configserver.log
+    ## path: \\server\\logs\\configserver\\
+

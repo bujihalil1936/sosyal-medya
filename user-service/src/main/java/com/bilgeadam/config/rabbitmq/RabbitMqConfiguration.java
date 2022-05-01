@@ -8,11 +8,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitMqConfiguration {
+public class RabbitMQConfiguration {
 
+    /**
+     * Exchange name verelim
+     */
     private String excahangeName= "bilgeadam.exchange";
     /**
-     * RoutingKey and QueueName will be matched.
+     * RoutingKey ve QueueName verelim bunlar eşleşecekler
      */
     private String routingKeyCreateUser = "routingKeyCreateUSer";
     private String queueNameCreateUser = "queueCreateUser";
@@ -28,6 +31,7 @@ public class RabbitMqConfiguration {
         return new Queue(queueProfileSave);
     }
 
+
     @Bean
     Queue queue(){
         return new Queue(queueNameCreateUser);
@@ -38,13 +42,14 @@ public class RabbitMqConfiguration {
         return new Queue(queueNameDeleteUser);
     }
 
+
     @Bean
     DirectExchange directExchange(){
         return new DirectExchange(excahangeName);
     }
 
     @Bean
-    public Binding binding(final Queue queue, final DirectExchange directExchange){
+    public Binding binding(final Queue queue,final DirectExchange directExchange){
         return BindingBuilder.bind(queue).to(directExchange).with(routingKeyCreateUser);
     }
 
@@ -57,4 +62,5 @@ public class RabbitMqConfiguration {
     public Binding bindingProfile(final Queue queueProfileSave,final DirectExchange directExchange){
         return BindingBuilder.bind(queueProfileSave).to(directExchange).with(routingProfileKey);
     }
+
 }

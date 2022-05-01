@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class ProfileInput {
-    String profileId;
+    String profileid;
     String firstname;
     String lastname;
     String email;
     String city;
     String country;
+
 }

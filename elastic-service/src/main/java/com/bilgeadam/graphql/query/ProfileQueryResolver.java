@@ -1,6 +1,6 @@
 package com.bilgeadam.graphql.query;
 
-import com.bilgeadam.repository.IProfileRepository;
+import com.bilgeadam.repository.IProfileReposity;
 import com.bilgeadam.repository.entity.Profile;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
@@ -9,20 +9,22 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Query resolver is designed for query operations with the parameters.
+ * Query Resolver
+ * Aldığı parametreler ile sorgulama yapmak için tasarlanmıştır.
+ * Burada soru işlemlerini gerçekleştireceğiz.
  */
 
 @Component
 @RequiredArgsConstructor
 public class ProfileQueryResolver implements GraphQLQueryResolver {
 
-    private final IProfileRepository repository;
+    private final IProfileReposity reposity;
 
     public List<Profile> findByFirstnameLike(String firstname){
-        return repository.findByFirstnameLike(firstname);
+        return reposity.findByFirstnameLike(firstname);
     }
 
-    private Iterable<Profile> findAll(){
-        return repository.findAll();
+    public Iterable<Profile> findAll(){
+        return reposity.findAll();
     }
 }

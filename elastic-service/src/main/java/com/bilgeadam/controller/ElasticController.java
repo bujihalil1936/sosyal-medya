@@ -28,4 +28,5 @@ public class ElasticController {
     public ResponseEntity<List<Profile>> findByFisrtname(String firstname) {
         return ResponseEntity.ok(elasticService.findByFirstNameLike(firstname));
     }
+
 }

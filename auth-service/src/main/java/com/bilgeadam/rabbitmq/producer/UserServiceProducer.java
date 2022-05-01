@@ -11,9 +11,9 @@ public class UserServiceProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void sendMessage(Notification notification){
-        rabbitTemplate.convertAndSend("bilgeadam.exchange","routingKetCreateUser",notification);
-        System.out.println("notificaion : " + notification.toString());
+    public void sendMessage(Notification notification) {
+        rabbitTemplate.convertAndSend("bilgeadam.exchange","routingKeyCreateUSer",notification);
+        System.out.println("notification = " + notification.toString());
     }
 
     public void deleteUser(Notification notification) {

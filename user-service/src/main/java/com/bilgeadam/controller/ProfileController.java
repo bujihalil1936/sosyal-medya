@@ -2,12 +2,15 @@ package com.bilgeadam.controller;
 
 import static com.bilgeadam.constant.RestApiUrls.*;
 
-import com.bilgeadam.dto.request.FindByAuthId;
+import com.bilgeadam.dto.request.FindByAutIdDto;
+import com.bilgeadam.dto.request.FindByIdRequestDto;
 import com.bilgeadam.dto.request.IsProfileExistsDto;
 import com.bilgeadam.dto.request.ProfileRequestDto;
+import com.bilgeadam.rabbitmq.model.ProfileNotification;
 import com.bilgeadam.rabbitmq.producer.ElasticProfileProducer;
 import com.bilgeadam.repository.entity.Profile;
 import com.bilgeadam.service.ProfileService;
+import com.bilgeadam.utility.ResultObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,23 +20,41 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(VERSION + PROFILE)
+@RequestMapping(VERSION+PROFILE)
+// @RequestMapping("/profile")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ProfileController {
 
     private final ProfileService profileService;
+
     private final ElasticProfileProducer elasticProfileProducer;
 
     @PostMapping(SAVE)
-// @PostMapping("/save")
+    // @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody @Valid ProfileRequestDto dto){
         String id = profileService.save(dto);
+        elasticProfileProducer.sendMessageProfileSave(ProfileNotification.builder()
+                        .city(dto.getCity())
+                        .country(dto.getCountry())
+                        .email(dto.getEmail())
+                        .firstname(dto.getFirstname())
+                        .lastname(dto.getLastname())
+                        .profileid(id)
+                .build());
         return ResponseEntity.ok(id);
     }
 
+
+    @PostMapping(FINDBYID)
+    public ResponseEntity<ResultObject> findById(@RequestBody @Valid FindByIdRequestDto dto){
+        return ResponseEntity.ok(profileService.findById(dto));
+    }
+
+
     @PostMapping(FINDBYAUTHID)
-    public ResponseEntity<String> findByAuthId(@RequestBody @Valid FindByAuthId dto){
-        Optional<Profile> profile = profileService.findByAuthId(dto.getAuhtid());
+    public ResponseEntity<String> findByAuthId(@RequestBody @Valid FindByAutIdDto dto){
+        Optional<Profile> profile = profileService.findByAuthId(dto.getAuthid());
         if(profile.isPresent()){
             return ResponseEntity.ok(profile.get().getId());
         }else{
@@ -43,7 +64,7 @@ public class ProfileController {
 
     @GetMapping(GETALL)
     public ResponseEntity<List<Profile>> findAll(){
-        return ResponseEntity.ok(profileService.findall());
+        return ResponseEntity.ok(profileService.findAll());
     }
 
     @PostMapping("/isprofileexistbyid")

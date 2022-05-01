@@ -17,21 +17,22 @@ public class RegisterRequestDto {
 
     @NotNull
     @Size(min = 2)
-    String name;
+    String ad;
     @NotNull
     @Size(min = 2)
-    String surname;
+    String soyad;
     @Email
     @NotNull
     String email;
     @NotNull
     @Size(min = 8,max = 32)
-    String password;
-    int day;
-    int month;
-    int year;
-    String country;
-    String city;
-    String gender;
+    String sifre;
+    int gun;
+    int ay;
+    int yil;
+    String ulke;
+    String sehir;
+    String cinsiyet;
+
 
 }

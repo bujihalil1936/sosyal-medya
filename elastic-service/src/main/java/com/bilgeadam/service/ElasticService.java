@@ -1,6 +1,6 @@
 package com.bilgeadam.service;
 
-import com.bilgeadam.repository.IProfileRepository;
+import com.bilgeadam.repository.IProfileReposity;
 import com.bilgeadam.repository.entity.Profile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,25 +12,22 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ElasticService {
 
-    private final IProfileRepository iProfileRepository;
+    private final IProfileReposity iProfileReposity;
 
-    public void save (Profile profile) {
-        iProfileRepository.save(profile);
+    public void save(Profile profile) {
+        iProfileReposity.save(profile);
     }
-
-    public void update (Profile profile) {
-        iProfileRepository.save(profile);
+    public void update(Profile profile) {
+        iProfileReposity.save(profile);
     }
-
-    public void delete (Profile profile) {
-        iProfileRepository.delete(profile);
+    public void delete(Profile profile) {
+        iProfileReposity.delete(profile);
     }
-
-    public Optional<Profile> findById (String id) {
-        return iProfileRepository.findById(id);
+    public Optional<Profile> findById(String id) {
+        return iProfileReposity.findById(id);
     }
-
     public List<Profile> findByFirstNameLike(String firstName) {
-        return iProfileRepository.findByFirstnameLike(firstName);
+        return iProfileReposity.findByFirstnameLike(firstName);
     }
+
 }

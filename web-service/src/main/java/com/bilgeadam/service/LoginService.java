@@ -16,8 +16,8 @@ public class LoginService {
     public DoLoginResponseDto Login(LoginDto dto) {
         return authServiceManager
                 .doLogin(DoLoginRequestDto.builder()
-                        .username(dto.getEmail())
-                        .password(dto.getPassword())
-                        .build()).getBody();
+                                    .username(dto.getEmail())
+                                    .password(dto.getPassword())
+                                    .build()).getBody();
     }
 }

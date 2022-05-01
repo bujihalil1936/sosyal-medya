@@ -13,14 +13,14 @@ import java.util.List;
 @Builder
 public class LoginPageModel {
     String title;
-    List<product> products;
+    List<urun> urunler;
 
     @AllArgsConstructor
     @NoArgsConstructor
     @Data
     @Builder
-    public static class product{
-        String productName;
-        String price;
+    public static class urun{
+        String urunAdi;
+        String urunFiyati;
     }
 }
